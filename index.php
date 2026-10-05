@@ -32,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores['e-mail'] = "el email no es valido";
     }
 
-        if (empty(array_filter($errores))) {
-            $_SESSION['usuario'] = [
+    if (empty(array_filter($errores))) {
+        $_SESSION['usuario'] = [
             'nombre' => $nombre,
             'apellidos' => $apellidos,
             'dni' => $dni,
@@ -51,11 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" type="text/css">
     <title>formulario</title>
 </head>
+
 <body>
     <?php foreach ($errores as $error): ?>
         <?php if (!empty($error)): ?>
@@ -64,19 +67,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endforeach; ?>
 
     <form action="index.php" method="POST">
-        <label> Nombre </label>
-        <input type="text" name="nombre">
-        
-        <label> Apellidos </label>
-        <input type="text" name="apellidos">
-        
-        <label> DNI </label>
-        <input type="text" name="dni">
-        
-        <label> E-Mail </label>
-        <input type="text" name="e-mail">
-        
-        <button type="submit"> Enviar </button>
+        <fieldset>
+            <label> Nombre </label>
+            <input type="text" name="nombre">
+
+            <label> Apellidos </label>
+            <input type="text" name="apellidos">
+
+            <label> DNI </label>
+            <input type="text" name="dni">
+
+            <label> E-Mail </label>
+            <input type="text" name="e-mail">
+
+            <button type="submit"> Enviar </button>
+        </fieldset>
     </form>
 </body>
+
 </html>
