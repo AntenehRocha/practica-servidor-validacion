@@ -55,34 +55,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css" type="text/css">
     <title>formulario</title>
 </head>
 
 <body>
+    <form action="index.php" method="POST">
+        <label> Nombre </label>
+        <input type="text" name="nombre">
+
+        <label> Apellidos </label>
+        <input type="text" name="apellidos">
+
+        <label> DNI </label>
+        <input type="text" name="dni">
+
+        <label> E-Mail </label>
+        <input type="text" name="e-mail">
+
+        <button type="submit"> Enviar </button>
+    </form>
     <?php foreach ($errores as $error): ?>
         <?php if (!empty($error)): ?>
             <p><?php echo $error; ?></p>
         <?php endif; ?>
     <?php endforeach; ?>
-
-    <form action="index.php" method="POST">
-        <fieldset>
-            <label> Nombre </label>
-            <input type="text" name="nombre">
-
-            <label> Apellidos </label>
-            <input type="text" name="apellidos">
-
-            <label> DNI </label>
-            <input type="text" name="dni">
-
-            <label> E-Mail </label>
-            <input type="text" name="e-mail">
-
-            <button type="submit"> Enviar </button>
-        </fieldset>
-    </form>
 </body>
 
 </html>
