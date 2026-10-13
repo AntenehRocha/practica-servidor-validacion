@@ -12,25 +12,6 @@ if (empty($_SESSION['usuario'])) {
 <script>
     import mongodb from 'mongodb';
     import { MongoClient } from 'mongodb';
-
-    const client = new MongoClient('mongodb://localhost:27017');
-    const db = client.db('practica');
-    const collection = db.collection('usuarios');
-
-    const nombre = document.getElementById('nombre').value;
-    const apellidos = document.getElementById('apellidos').value;
-    const dni = document.getElementById('dni').value;
-    const e_mail = document.getElementById('e-mail').value;
-
-    const usuario = {
-        nombre: nombre,
-        apellidos: apellidos,
-        dni: dni,
-        e_mail: e_mail
-    };
-
-    
-
 </script>
 
 
