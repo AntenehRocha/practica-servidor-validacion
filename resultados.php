@@ -9,12 +9,6 @@ if (empty($_SESSION['usuario'])) {
 
 ?>
 
-<script>
-    import mongodb from 'mongodb';
-    import { MongoClient } from 'mongodb';
-</script>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
