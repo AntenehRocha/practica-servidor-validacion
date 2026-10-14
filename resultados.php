@@ -49,18 +49,22 @@ $email = htmlspecialchars((string) $usuario['e-mail'], ENT_QUOTES, 'UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>resultados</title>
 </head>
+
 <body>
     <p>hola <?php echo $nombre . ' ' . $apellidos; ?>, datos validados corectamente.</p>
 
     <p>dni: <?php echo $dni; ?></p>
+
     <p>e-mail: <?php echo $email; ?></p>
 
     <p><?php echo htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8'); ?></p>
 
     <p><a href="index.php">volver al formulario</a></p>
 </body>
+
 </html>
