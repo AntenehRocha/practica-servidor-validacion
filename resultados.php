@@ -33,12 +33,12 @@ if (empty($_SESSION['mongo_guardado'])) {
         ]);
 
         $_SESSION['mongo_guardado'] = true;
-        $mensaje = 'Datos guardados en MongoDB Atlas.';
+        $mensaje = 'datos guardados en mongodb atlas.';
     } catch (Throwable $e) {
-        $mensaje = 'Error al guardar los datos: ' . $e->getMessage();
+        $mensaje = 'error al guardar los datos: ' . $e->getMessage();
     }
 } else {
-    $mensaje = 'Estos datos ya se habian guardado antes.';
+    $mensaje = 'estos datos ya se habian guardado antes.';
 }
 
 // Limpio los datos para mostrarlos en HTML
@@ -51,16 +51,16 @@ $email = htmlspecialchars((string) $usuario['e-mail'], ENT_QUOTES, 'UTF-8');
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Resultados</title>
+    <title>resultados</title>
 </head>
 <body>
-    <p>Hola <?php echo $nombre . ' ' . $apellidos; ?>, datos validados correctamente.</p>
+    <p>hola <?php echo $nombre . ' ' . $apellidos; ?>, datos validados corectamente.</p>
 
-    <p>DNI: <?php echo $dni; ?></p>
-    <p>E-mail: <?php echo $email; ?></p>
+    <p>dni: <?php echo $dni; ?></p>
+    <p>e-mail: <?php echo $email; ?></p>
 
     <p><?php echo htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8'); ?></p>
 
-    <p><a href="index.php">Volver al formulario</a></p>
+    <p><a href="index.php">volver al formulario</a></p>
 </body>
 </html>

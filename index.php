@@ -32,10 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      */
 
     if (empty($nombre)) {
-        $errores['nombre'] = "introduce un nombre";
+        $errores['nombre'] = "introduce un nombe";
     }
     if (empty($apellidos)) {
-        $errores['apellidos'] = "introduce un apellido";
+        $errores['apellidos'] = "introduce un apelido";
     }
     if (empty($dni)) {
         $errores['dni'] = "introduce un dni";
@@ -83,19 +83,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <form action="index.php" method="POST">
-        <label> Nombre </label>
+        <label> nombre </label>
         <input type="text" name="nombre">
 
-        <label> Apellidos </label>
+        <label> apellidos </label>
         <input type="text" name="apellidos">
 
-        <label> DNI </label>
+        <label> dni </label>
         <input type="text" name="dni">
 
-        <label> E-Mail </label>
+        <label> e-mail </label>
         <input type="text" name="e-mail">
 
-        <button type="submit"> Enviar </button>
+        <button type="submit"> enviar </button>
     </form>
     <!-- esto lo pongo para mostrar en el html los errores de validación -->
     <?php foreach ($errores as $error): ?>
