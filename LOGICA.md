@@ -258,81 +258,59 @@ Esto evita insertar el mismo documento varias veces si el usuario recarga la pá
 ### 5.5 Lectura de variables de entorno
 
 ```php
-$uri = trim((string) getenv('MONGODB_URI'));
-$db = trim((string) getenv('MONGODB_DB'));
-$collectionName = trim((string) getenv('MONGODB_COLLECTION'));
+$uri = getenv('MONGODB_URI');
+$db = getenv('MONGODB_DB');
+$coleccion = getenv('MONGODB_COLLECTION');
 ```
 
-Actualmente no hay valores por defecto: `MONGODB_DB` y `MONGODB_COLLECTION` deben configurarse en `.env`.
+Se leen directamente desde `.env`/entorno. No hay valores por defecto ni comprobaciones previas.
 
-Si falta alguno de estos valores, la aplicación no intenta conectar y muestra un mensaje de configuración incompleta.
-
-### 5.6 Comprobación de extensión PHP
+### 5.6 Guardado simplificado
 
 ```php
-elseif (!extension_loaded('mongodb')) {
-```
+$cliente = new MongoDB\Client($uri);
+$tabla = $cliente->selectDatabase($db)->selectCollection($coleccion);
 
-Si la extensión no está cargada, se muestra un error.
-
-### 5.8 Conexión e inserción
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-$client = new MongoDB\Client($uri);
-$collection = $client->selectDatabase($db)->selectCollection($collectionName);
-
-$resultado = $collection->insertOne([
+$tabla->insertOne([
     'nombre' => $usuario['nombre'],
     'apellidos' => $usuario['apellidos'],
     'dni' => $usuario['dni'],
     'email' => $usuario['e-mail'],
-    'creadoEn' => new MongoDB\BSON\UTCDateTime(),
-    'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
 ]);
 ```
 
-Documentación del flujo:
+Pasos:
 
 1. Carga el autoloader de Composer.
-2. Crea el cliente de MongoDB.
-3. Selecciona la base de datos.
-4. Selecciona la colección.
-5. Inserta un documento con los datos validados.
-6. Añade fecha de creación e IP.
+2. Crea el cliente MongoDB.
+3. Selecciona base de datos y colección.
+4. Inserta un documento con los datos validados.
 
-Luego:
+### 5.7 Control de duplicados
 
 ```php
-$_SESSION['mongo_guardado'] = true;
-$estadoMongo = 'ok';
-$mongoId = (string) $resultado->getInsertedId();
-```
-
-Se marca como guardado para evitar duplicados.
-
-### 5.9 Gestión de errores
-
-```php
-catch (Throwable $e) {
-    $estadoMongo = 'error';
-    $mensajeMongo = '... ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
+if (empty($_SESSION['mongo_guardado'])) {
+    ...
+    $_SESSION['mongo_guardado'] = true;
+} else {
+    $mensaje = 'Estos datos ya se habian guardado antes.';
 }
 ```
 
-Si Atlas falla, la aplicación no se rompe. Muestra el error sin exponer datos sensibles de forma directa en la respuesta HTML.
+Así, al recargar `resultados.php`, no se inserta otra vez.
 
-### 5.10 Ya guardado anteriormente
+### 5.8 Gestión de errores
 
 ```php
-else {
-    $estadoMongo = 'ok';
-    $mensajeMongo = 'Estos datos ya habian sido guardados anteriormente.';
+try {
+    $tabla->insertOne([...]);
+    $mensaje = 'Datos guardados en MongoDB Atlas.';
+} catch (Throwable $e) {
+    $mensaje = 'Error al guardar los datos: ' . $e->getMessage();
 }
 ```
 
-Si el usuario recarga `resultados.php`, no se inserta de nuevo.
+Si la conexión o la inserción fallan, se muestra el error, pero la aplicación sigue mostrando la página.
 
 ## 6. Lógica del contenedor Docker
 
