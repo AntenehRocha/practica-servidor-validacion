@@ -267,17 +267,7 @@ Actualmente no hay valores por defecto: `MONGODB_DB` y `MONGODB_COLLECTION` debe
 
 Si falta alguno de estos valores, la aplicación no intenta conectar y muestra un mensaje de configuración incompleta.
 
-### 5.6 Comprobación de placeholder
-
-```php
-$uriEsPlaceholder = $uri === ''
-    || stripos($uri, 'USUARIO:PASSWORD') !== false
-    || stripos($uri, 'usuario:password') !== false;
-```
-
-Si la URI no está configurada o sigue teniendo el placeholder, la aplicación avisa y no intenta conectar a Atlas.
-
-### 5.7 Comprobación de extensión PHP
+### 5.6 Comprobación de extensión PHP
 
 ```php
 elseif (!extension_loaded('mongodb')) {
