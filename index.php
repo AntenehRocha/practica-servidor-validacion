@@ -60,6 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'dni' => $dni,
             'e-mail' => $e_mail
         ];
+        // Nuevo intento de guardado para estos datos
+        unset($_SESSION['mongo_guardado']);
         header('Location: ./resultados.php');
         exit;
     }

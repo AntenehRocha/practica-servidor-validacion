@@ -1,0 +1,18 @@
+services:
+  web:
+    build:
+      context: .
+    container_name: php-validaciones
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    volumes:
+      # Codigo de desarrollo montado desde el host
+      - .:/var/www/html
+      # Conserva vendor dentro del contenedor (no lo pisa el bind mount)
+      - vendor:/var/www/html/vendor
+    restart: unless-stopped
+
+volumes:
+  vendor:
