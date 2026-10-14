@@ -24,18 +24,14 @@ if (empty($_SESSION['mongo_guardado'])) {
     $db = trim((string) getenv('MONGODB_DB'));
     $collectionName = trim((string) getenv('MONGODB_COLLECTION'));
 
-    if ($db === '') {
-        $db = 'practica';
-    }
-    if ($collectionName === '') {
-        $collectionName = 'usuarios';
-    }
-
     $uriEsPlaceholder = $uri === ''
         || stripos($uri, 'USUARIO:PASSWORD') !== false
         || stripos($uri, 'usuario:password') !== false;
 
-    if ($uriEsPlaceholder) {
+    if ($uri === '' || $db === '' || $collectionName === '') {
+        $estadoMongo = 'saltado';
+        $mensajeMongo = 'Faltan MONGODB_URI, MONGODB_DB o MONGODB_COLLECTION en el archivo .env.';
+    } elseif ($uriEsPlaceholder) {
         $estadoMongo = 'saltado';
         $mensajeMongo = 'Configura MONGODB_URI en el archivo .env para guardar los datos en Atlas.';
     } elseif (!extension_loaded('mongodb')) {

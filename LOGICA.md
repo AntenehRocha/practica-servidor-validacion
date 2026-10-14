@@ -263,16 +263,9 @@ $db = trim((string) getenv('MONGODB_DB'));
 $collectionName = trim((string) getenv('MONGODB_COLLECTION'));
 ```
 
-Valores por defecto:
+Actualmente no hay valores por defecto: `MONGODB_DB` y `MONGODB_COLLECTION` deben configurarse en `.env`.
 
-```php
-if ($db === '') {
-    $db = 'practica';
-}
-if ($collectionName === '') {
-    $collectionName = 'usuarios';
-}
-```
+Si falta alguno de estos valores, la aplicación no intenta conectar y muestra un mensaje de configuración incompleta.
 
 ### 5.6 Comprobación de placeholder
 
